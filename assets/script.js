@@ -30,6 +30,7 @@ var quizScore = 0;
 var currentIndex = 0;
 
 function showWelcome () {
+viewHighScores.setAttribute('style', 'display:none;');
 welcomeTitle.textContent = 'Welcome to Coding Quiz';
 welcomeInstructions.textContent = 'You will have 60 seconds to answer 4 questions about HTML, CSS, and/or JavaScript. Be careful! If you get a question wrong, time will be removed from the clock. The quiz is over when the timer reaches 0 or you answer all 4 questions.';
 startButton.textContent = 'Start Quiz';
@@ -39,6 +40,8 @@ showWelcome ();
 
 var endQuiz = function () {
     theQuiz.setAttribute('style','display:none;');
+    welcomePage.setAttribute('style','display:none;');
+    viewHighScores.setAttribute('style', 'min-height: 400px; width: 70%; margin-top: 20px; text-align: center;');
 }
 
 function setTimer () {
