@@ -37,6 +37,10 @@ startButton.textContent = 'Start Quiz';
 
 showWelcome ();
 
+var endQuiz = function () {
+    theQuiz.setAttribute('style','display:none;');
+}
+
 function setTimer () {
     var timerInterval = setInterval(function() {
         secondsLeft--;
@@ -82,8 +86,12 @@ var determineAnswer = function (event) {
         secondsLeft = secondsLeft - 5;
         quizScore = quizScore - 5;
         console.log('Current Score: ' + quizScore);}
-    showQuestion();
-    }
+    if (currentIndex < 4) {
+        showQuestion();
+    } else {
+        timeEl.textContent = 'Timer: 0 Seconds';
+        endQuiz();
+    }}
 
 var startQuiz = function () {
     setTimer();
