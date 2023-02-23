@@ -24,7 +24,7 @@ var scoreboard = document.getElementById('scoreboard');
 timeEl.textContent = 'Timer: 60 Seconds';
 highScoreEl.textContent = 'View High Scores';
 
-//Flexbox on header and main section. Styling for Welcome Page
+//Styling Attributes - Flexbox on header and main section. Styling for Welcome Page
 headerStyle.setAttribute('style', 'display: flex; flex-wrap: wrap; justify-content: space-between; background-color: purple; color: white; font-size: 10px; padding: 20px;');
 flexbox.setAttribute('style', "display: flex; flex-direction: column; justify-content: center; align-items: center;");
 welcomePage.setAttribute('style', 'min-height: 400px; width: 70%; margin-top: 20px; text-align: center;');
@@ -47,9 +47,10 @@ startButton.textContent = 'Start Quiz';
 
 showWelcome ();
 
+//local storage attempt - incorrect
 var storehighScore = function () {
     theQuiz.setAttribute('style','display:none;');
-    welcomePage.setAttribute('style','display:none;');
+    //welcomePage.setAttribute('style','display:none;');
     addHighScores.setAttribute('style', 'min-height: 400px; width: 70%; margin-top: 20px; text-align: center;');
     myScore.textContent = "My Score: " + quizScore;
 
@@ -67,7 +68,8 @@ var viewHighScores = function () {
     theQuiz.setAttribute('style','display:none;');
     welcomePage.setAttribute('style','display:none;');
     addHighScores.setAttribute('style','display:none;');
-    localStorage.getItem("playerInitials", myInitials);
+    scoreboard.getAttribute('style', 'min-height: 400px; width: 70%; margin-top: 20px; text-align: center;');
+    localStorage.getItem("playerInitials", playerInitials);
 
     var li = document.createElement('li');
     li.textContent = myInitials.textContent + ' - ' + quizScore
@@ -75,6 +77,7 @@ var viewHighScores = function () {
     scoreList.appendChild(li);
 }
 
+//Sets Timer to Start and Stop Once Start Quiz Button is clicked
 function setTimer () {
     var timerInterval = setInterval(function() {
         secondsLeft--;
@@ -89,12 +92,14 @@ function setTimer () {
     }, 1000);
 }
 
+//Array with Quiz Questions, Answer Choices, and Correct Answers
 var quizQuestions = {
     Questions: ['What declaration MUST be included as the first item in an HTML document before the tag and is used to provide instructions to the web browser?','Every HTML page must include a reference to the external file sheet file inside the ____ element.', 'What is the name of CSS design that calls for fluid and adaptable elements based on the device resolution or size?', 'What is the type of loop that continues through a block of code as long as the specified condition remains TRUE?'],
     AnswerChoices: [['1. <caption>', '2. <embed>', '3. <code>', '4. <!DOCTYPE>'], ['1. <div>', '2. Link', '3. Body', '4. Footer'], ['1. Evolution', '2. Shifting', '3. Responsive', '4. Cascading'], ['1. While Loop', '2. For Loop', '3. Else Loop', '4. Conditional Loop']],
     CorrectChoice: ['4. <!DOCTYPE>', '2. Link', '3. Responsive', '1. While Loop'],
 }
 
+//Establishes loop to go through quiz questions
 var showQuestion = function () {
     questionTitle.textContent = quizQuestions.Questions[currentIndex];
     for (var i=0; i < quizQuestions.AnswerChoices[currentIndex].length; i++) {
@@ -107,6 +112,8 @@ var showQuestion = function () {
     multipleChoice[3].addEventListener('click', determineAnswer);
 };
 
+//function that determines if answer choice clicked is correct and adjusts score & timer as needed before moving to the next question
+//ends the quiz if all questions answered before the timer hits 0
 var determineAnswer = function (event) {
     var text = event.target.textContent
     console.log(text);
@@ -128,6 +135,7 @@ var determineAnswer = function (event) {
         storehighScore();
     }}
 
+//function that starts quiz once the start button has been clicked
 var startQuiz = function () {
     setTimer();
     welcomePage.setAttribute('style','display:none;');
@@ -135,5 +143,6 @@ var startQuiz = function () {
 
     showQuestion();
 }
-        
+
+//Event Listener that calls the startQuiz function
 startButton.addEventListener('click', startQuiz);
