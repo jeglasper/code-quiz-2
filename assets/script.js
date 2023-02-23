@@ -63,7 +63,7 @@ var storehighScore = function () {
     });
 
 }
-
+//local storage attempt - not working as intended
 var viewHighScores = function () {
     theQuiz.setAttribute('style','display:none;');
     welcomePage.setAttribute('style','display:none;');
