@@ -1,6 +1,6 @@
 # Code-Quiz-2
 
-### Description
+## Description
 
 ### Project Motivation & Purpose
 
@@ -16,11 +16,11 @@ Through this project I have learned how to use DOM as well as how to utilize eve
 
 This webpage can be used to take a quiz when it is completed to test your basic coding knowledge.
 
-Deployed Website:
+Deployed Website: https://jeglasper.github.io/code-quiz-2/
 
 Git Hub Repository: https://github.com/jeglasper/code-quiz-2
 
-![Coding Quiz Screenshot]()
+![Coding Quiz Screenshot](./assets/FinalWebpageScreenshot.jpg)
 
 ## Credits
 
