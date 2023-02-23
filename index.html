@@ -26,25 +26,30 @@
         <h2></h2>
         <div>
             <ul>
-                <li class="mc"></li>
-                <li class="mc"></li>
-                <li class="mc"></li>
-                <li class="mc"></li>
+                <li><button class="mc"></button></li>
+                <li><button class="mc"></button></li>
+                <li><button class="mc"></button></li>
+                <li><button class="mc"></button></li>
             </ul>
         </div>
         <p class="grade"></p>
     </section>
 
-    <section class="section-style" id ="viewHighScores">
+    <section class="section-style" id ="addHighScores">
         <h2></h2>
-        <div>
-            <ul></ul>
-        </div>
         <form>
             <label for="initials">Your Initials</label>
             <input type="initials" name="initials" id="initials" placeholder="ex. JEG">
-            <button>Submit Score</button>
+            <button id="submit">Submit Score</button>
         </form>
+    </section>
+
+    <section class="section-style" id="scoreboard">
+        <h2>High Scores</h2>
+        <ul id="highscore-List">
+
+        </ul>
+
     </section>
 </main>
 

@@ -5,7 +5,7 @@ var flexbox = document.body.querySelector('.flexbox');
 var quizEl = document.body.querySelector('#quizBox');
 var welcomePage = document.body.querySelector('#welcomeToQuiz');
 var theQuiz = document.body.querySelector('#quizBox');
-var viewHighScores = document.body.querySelector('#viewHighScores');
+var addHighScores = document.body.querySelector('#addHighScores');
 var multipleChoice = document.body.querySelectorAll('.mc');
 var titles = document.body.querySelector('h2');
 var welcomeTitle = document.body.children[1].children[0].children[0];
@@ -14,23 +14,32 @@ var startButton = document.body.children[1].children[0].children[2];
 var headerStyle = document.body.querySelector('header');
 var grade = document.querySelector('.grade');
 var questionTitle = document.body.children[1].children[1].children[0];
+var myScore = document.body.children[1].children[2].children[0];
+var submitMyScore = document.body.querySelector('#submit');
+var myInitials = document.getElementById("initials");
+var scoreList = document.getElementById('highscore-List');
+var scoreboard = document.getElementById('scoreboard');
 
+//Establish Welcome Page Text in Header
 timeEl.textContent = 'Timer: 60 Seconds';
 highScoreEl.textContent = 'View High Scores';
 
-
+//Flexbox on header and main section. Styling for Welcome Page
 headerStyle.setAttribute('style', 'display: flex; flex-wrap: wrap; justify-content: space-between; background-color: purple; color: white; font-size: 10px; padding: 20px;');
 flexbox.setAttribute('style', "display: flex; flex-direction: column; justify-content: center; align-items: center;");
 welcomePage.setAttribute('style', 'min-height: 400px; width: 70%; margin-top: 20px; text-align: center;');
 titles.setAttribute('style', 'margin: 20px; text-align: center; padding-top: 50px;');
 welcomeInstructions.setAttribute('style', 'margin: 50px; text-align: center;');
 
+//Sets inital values for seconds remaining on time, quiz score, and the index value
 var secondsLeft = 60;
 var quizScore = 0;
 var currentIndex = 0;
 
+//establishes what content is displayed during WelcomePage
 function showWelcome () {
-viewHighScores.setAttribute('style', 'display:none;');
+addHighScores.setAttribute('style', 'display:none;');
+scoreboard.setAttribute('style', 'display:none;');
 welcomeTitle.textContent = 'Welcome to Coding Quiz';
 welcomeInstructions.textContent = 'You will have 60 seconds to answer 4 questions about HTML, CSS, and/or JavaScript. Be careful! If you get a question wrong, time will be removed from the clock. The quiz is over when the timer reaches 0 or you answer all 4 questions.';
 startButton.textContent = 'Start Quiz';
@@ -38,10 +47,32 @@ startButton.textContent = 'Start Quiz';
 
 showWelcome ();
 
-var endQuiz = function () {
+var storehighScore = function () {
     theQuiz.setAttribute('style','display:none;');
     welcomePage.setAttribute('style','display:none;');
-    viewHighScores.setAttribute('style', 'min-height: 400px; width: 70%; margin-top: 20px; text-align: center;');
+    addHighScores.setAttribute('style', 'min-height: 400px; width: 70%; margin-top: 20px; text-align: center;');
+    myScore.textContent = "My Score: " + quizScore;
+
+    submitMyScore.addEventListener('click', function () {
+        console.log(myInitials);
+        var playerInitials = localStorage.setItem("playerInitials");
+        myInitials.textContent = playerInitials;
+        viewHighScores();
+
+    });
+
+}
+
+var viewHighScores = function () {
+    theQuiz.setAttribute('style','display:none;');
+    welcomePage.setAttribute('style','display:none;');
+    addHighScores.setAttribute('style','display:none;');
+    localStorage.getItem("playerInitials", myInitials);
+
+    var li = document.createElement('li');
+    li.textContent = myInitials.textContent + ' - ' + quizScore
+
+    scoreList.appendChild(li);
 }
 
 function setTimer () {
@@ -52,7 +83,7 @@ function setTimer () {
     if (secondsLeft <= 0 || currentIndex > 3) {
         clearInterval(timerInterval);
         timeEl.textContent = 'Timer: 0 Seconds';
-        endQuiz();
+        storehighScore();
     }
 
     }, 1000);
@@ -68,6 +99,7 @@ var showQuestion = function () {
     questionTitle.textContent = quizQuestions.Questions[currentIndex];
     for (var i=0; i < quizQuestions.AnswerChoices[currentIndex].length; i++) {
         multipleChoice[i].textContent = quizQuestions.AnswerChoices[currentIndex][i];
+        multipleChoice[i].setAttribute('style', 'margin: 20px; padding: 10px; font-weight: bold;');
     }
     multipleChoice[0].addEventListener('click', determineAnswer);
     multipleChoice[1].addEventListener('click', determineAnswer);
@@ -93,7 +125,7 @@ var determineAnswer = function (event) {
         showQuestion();
     } else {
         timeEl.textContent = 'Timer: 0 Seconds';
-        endQuiz();
+        storehighScore();
     }}
 
 var startQuiz = function () {
